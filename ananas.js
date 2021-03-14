@@ -1,3 +1,4 @@
+ROT = require('rot-js');
 var Game = {
     display: null,
     init: function() {
@@ -148,3 +149,4 @@ Player.prototype._checkBox = function() {
         alert("This box is empty.");
     }
 };
+window.onload = function() { Game.init(); };
