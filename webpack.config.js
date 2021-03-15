@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-    entry: './ananas.js',
+    entry: './src/ananas.ts',
     module: {
         rules: [
             {
