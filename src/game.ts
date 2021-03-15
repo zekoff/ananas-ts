@@ -10,7 +10,12 @@ export class Game {
     pedro: Pedro;
     engine: Engine;
     init() {
-        this.display = new Display();
+        this.display = new Display({
+            width: 50,
+            height: 26,
+            fontSize: 18,
+            forceSquareRatio: true
+        });
         document.body.appendChild(this.display.getContainer());
         this.generateMap();
         let scheduler = new Scheduler.Simple();
@@ -20,7 +25,7 @@ export class Game {
         this.engine.start();
     }
     private generateMap() {
-        const digger = new Map.Digger(80, 25);
+        const digger = new Map.Digger(50, 25);
         const freeCells: string[] = [];
         const digCallback = (x: number, y: number, value: string) => {
             if (value) { return; } // do not store walls

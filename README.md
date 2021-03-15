@@ -23,3 +23,7 @@ My current understanding of the dependencies installed:
 - **ts-loader**: (not sure yet, used by webpack config... perhaps the glue between webpack and the TS compiler?)
 - **live-server**: CLI equivalent of that live-server extension I have in VS Code
 - **rot-js**: the ROT.js library, for importing
+
+## TODO
+
+* Apparently ROT.Engine is essentially deprecated. The lock/unlock pattern should be converted to an async/await pattern.

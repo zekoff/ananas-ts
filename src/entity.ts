@@ -30,6 +30,7 @@ export class Player extends Entity {
         super("@", "yellow", game, x, y);
     }
     act() {
+        util.showMessage(" ", this.game.display);
         this.game.engine.lock();
         window.addEventListener('keydown', this);
     }
@@ -72,13 +73,13 @@ export class Player extends Entity {
     checkBox() {
         let packedCell = util.packCell(this.x, this.y);
         if (this.game.map[packedCell] != "*") {
-            util.showMessage("There is no box here.");
+            util.showMessage("There is no box here.", this.game.display);
         } else if (packedCell == this.game.ananas) {
-            util.showMessage("You found the ananas and won this game!");
+            util.showMessage("You found the ananas and won this game!", this.game.display);
             this.game.engine.lock();
             window.removeEventListener('keydown', this);
         } else {
-            util.showMessage("This box is empty.");
+            util.showMessage("This box is empty.", this.game.display);
         }
     }
 }
@@ -111,7 +112,7 @@ export class Pedro extends Entity {
         path.shift(); // remove Pedro's position
         if (path.length == 1) {
             this.game.engine.lock();
-            util.showMessage("Pedro captured you. Game over.");
+            util.showMessage("Pedro captured you. Game over.", this.game.display);
         } else {
             let newX: number, newY: number;
             newX = path[0][0];

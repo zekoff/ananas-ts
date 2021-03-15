@@ -1,4 +1,4 @@
-import { RNG } from 'rot-js';
+import { RNG, Display } from 'rot-js';
 
 export function pickFreeCell(freeCells: string[]) {
     let index = Math.floor(RNG.getUniform() * freeCells.length);
@@ -14,6 +14,7 @@ export function unpackCell(packedCell: string) {
     return [parseInt(parts[0]), parseInt(parts[1])];
 }
 
-export function showMessage(message: string) {
-    alert(message);
+export function showMessage(message: string, display: Display) {
+    for (let i = 0; i < 50; i++) display.draw(i, 25, " ", null, null);
+    display.drawText(0, 25, message, 50);
 }
