@@ -18,8 +18,8 @@ Steps I used to set up the project:
 My current understanding of the dependencies installed:
 
 - **typescript**: compiler for TS
-- **webpack**: the build tool -- allows use of `require` in JS/TS, minifies and bundles code, etc.
+- **webpack**: minifies and bundles code, etc.
 - **webpack-cli**: provides the watch command for live reloading/compiling
-- **ts-loader**: (not sure yet, used by webpack config)
+- **ts-loader**: (not sure yet, used by webpack config... perhaps the glue between webpack and the TS compiler?)
 - **live-server**: CLI equivalent of that live-server extension I have in VS Code
-- **rot-js**: the ROT.js library, rather than manually putting a CDN reference in a script tag in the HTML
+- **rot-js**: the ROT.js library, for importing

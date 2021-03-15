@@ -1,11 +1,12 @@
 import { DIRS, Path } from 'rot-js';
+import { Game } from './game';
 import * as util from './util';
 
 export class Entity {
     constructor(
         private renderCharacter: string,
         private renderColor: string,
-        protected game,
+        protected game: Game,
         public x: number,
         public y: number,
     ) {}
@@ -14,7 +15,8 @@ export class Entity {
             this.x,
             this.y,
             this.renderCharacter,
-            this.renderColor
+            this.renderColor,
+            null
         );
     }
     act() {}
@@ -23,7 +25,7 @@ export class Player extends Entity {
     constructor(
         x: number,
         y: number,
-        game,
+        game: Game,
     ) {
         super("@", "yellow", game, x, y);
     }
@@ -57,7 +59,9 @@ export class Player extends Entity {
         this.game.display.draw(
             this.x,
             this.y,
-            this.game.map[util.packCell(this.x, this.y)]
+            this.game.map[util.packCell(this.x, this.y)],
+            null,
+            null
         );
         this.x = newX;
         this.y = newY;
@@ -82,7 +86,7 @@ export class Pedro extends Entity {
     constructor(
         x: number,
         y: number,
-        game,
+        game: Game,
     ) {
         super("P", "red", game, x, y);
     }
@@ -115,7 +119,9 @@ export class Pedro extends Entity {
             this.game.display.draw(
                 this.x,
                 this.y,
-                this.game.map[util.packCell(this.x, this.y)]
+                this.game.map[util.packCell(this.x, this.y)],
+                null,
+                null
             );
             this.x = newX;
             this.y = newY;
