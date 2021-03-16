@@ -1,6 +1,15 @@
-import { Display, Map, Engine, Scheduler } from 'rot-js';
+import { Display, Map, Scheduler } from 'rot-js';
+import simple from 'rot-js/lib/scheduler/simple';
 import { Player, Pedro } from './entity';
 import * as util from './util';
+
+async function mainLoop(scheduler: simple<any>, game: Game) {
+    while (game.active) {
+        let actor = scheduler.next();
+        if (!actor) { break; }
+        await actor.act();
+    }
+}
 
 export class Game {
     display: Display;
@@ -8,7 +17,7 @@ export class Game {
     ananas: string;
     player: Player;
     pedro: Pedro;
-    engine: Engine;
+    active: boolean = true;
     init() {
         this.display = new Display({
             width: 50,
@@ -21,8 +30,7 @@ export class Game {
         let scheduler = new Scheduler.Simple();
         scheduler.add(this.player, true);
         scheduler.add(this.pedro, true);
-        this.engine = new Engine(scheduler);
-        this.engine.start();
+        mainLoop(scheduler, this);
     }
     private generateMap() {
         const digger = new Map.Digger(50, 25);

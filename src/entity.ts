@@ -21,7 +21,9 @@ export class Entity {
     }
     act() {}
 }
+
 export class Player extends Entity {
+    private done: boolean;
     constructor(
         x: number,
         y: number,
@@ -29,10 +31,13 @@ export class Player extends Entity {
     ) {
         super("@", "yellow", game, x, y);
     }
-    act() {
-        util.showMessage(" ", this.game.display);
-        this.game.engine.lock();
-        window.addEventListener('keydown', this);
+    async act() {
+        this.done = false;
+        while (!this.done && this.game.active) {
+            let e = await new Promise(response => {window.addEventListener('keydown', response, {"once": true})});
+            this.done = this.handleEvent(e);
+        }
+        if (this.game.active) util.showMessage(" ", this.game.display);
     }
     handleEvent(e) {
         var keyMap = {
@@ -48,14 +53,14 @@ export class Player extends Entity {
         var code = e.keyCode;
         if (code == 13 || code == 32) {
             this.checkBox();
-            return;
+            return false;
         }
-        if (!(code in keyMap)) {return;}
+        if (!(code in keyMap)) {return false;}
         var diff = DIRS[8][keyMap[code]];
         var newX = this.x + diff[0];
         var newY = this.y + diff[1];
         var newKey = newX + "," + newY;
-        if (!(newKey in this.game.map)) {return;}
+        if (!(newKey in this.game.map)) {return false;}
     
         this.game.display.draw(
             this.x,
@@ -67,8 +72,7 @@ export class Player extends Entity {
         this.x = newX;
         this.y = newY;
         this.draw();
-        window.removeEventListener("keydown", this);
-        this.game.engine.unlock();
+        return true;
     }
     checkBox() {
         let packedCell = util.packCell(this.x, this.y);
@@ -76,13 +80,13 @@ export class Player extends Entity {
             util.showMessage("There is no box here.", this.game.display);
         } else if (packedCell == this.game.ananas) {
             util.showMessage("You found the ananas and won this game!", this.game.display);
-            this.game.engine.lock();
-            window.removeEventListener('keydown', this);
+            this.game.active = false;
         } else {
             util.showMessage("This box is empty.", this.game.display);
         }
     }
 }
+
 export class Pedro extends Entity {
     constructor(
         x: number,
@@ -111,8 +115,8 @@ export class Pedro extends Entity {
     
         path.shift(); // remove Pedro's position
         if (path.length == 1) {
-            this.game.engine.lock();
             util.showMessage("Pedro captured you. Game over.", this.game.display);
+            this.game.active = false;
         } else {
             let newX: number, newY: number;
             newX = path[0][0];

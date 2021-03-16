@@ -25,5 +25,3 @@ My current understanding of the dependencies installed:
 - **rot-js**: the ROT.js library, for importing
 
 ## TODO
-
-* Apparently ROT.Engine is essentially deprecated. The lock/unlock pattern should be converted to an async/await pattern.
