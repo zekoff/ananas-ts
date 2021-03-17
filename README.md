@@ -25,3 +25,9 @@ My current understanding of the dependencies installed:
 - **rot-js**: the ROT.js library, for importing
 
 ## TODO
+
+* Fix crash when player occupies same space as enemy
+* Expand display to include hit points
+* Allow fighting enemies
+* Add more enemies
+* Add health items or other pickups

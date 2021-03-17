@@ -2,7 +2,7 @@ import { DIRS, Path } from 'rot-js';
 import { Game } from './game';
 import * as util from './util';
 
-export class Entity {
+class Entity {
     constructor(
         private renderCharacter: string,
         private renderColor: string,
@@ -34,12 +34,13 @@ export class Player extends Entity {
     async act() {
         this.done = false;
         while (!this.done && this.game.active) {
-            let e = await new Promise(response => {window.addEventListener('keydown', response, {"once": true})});
-            this.done = this.handleEvent(e);
+            await new Promise(
+                response => { window.addEventListener('keydown', response, {"once": true}); }
+            ).then( (keystroke: KeyboardEvent) => { this.done = this.processKeystroke(keystroke); } );
         }
         if (this.game.active) util.showMessage(" ", this.game.display);
     }
-    handleEvent(e) {
+    private processKeystroke(e: KeyboardEvent) {
         var keyMap = {
             "38": 0,
             "33": 1,
@@ -74,7 +75,7 @@ export class Player extends Entity {
         this.draw();
         return true;
     }
-    checkBox() {
+    private checkBox() {
         let packedCell = util.packCell(this.x, this.y);
         if (this.game.map[packedCell] != "*") {
             util.showMessage("There is no box here.", this.game.display);
