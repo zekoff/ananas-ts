@@ -31,3 +31,4 @@ My current understanding of the dependencies installed:
 * Allow fighting enemies
 * Add more enemies
 * Add health items or other pickups
+* Change box icon when it has been inspected

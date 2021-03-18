@@ -42,17 +42,13 @@ export class Player extends Entity {
     }
     private processKeystroke(e: KeyboardEvent) {
         var keyMap = {
-            "38": 0,
-            "33": 1,
-            "39": 2,
-            "34": 3,
-            "40": 4,
-            "35": 5,
-            "37": 6,
-            "36": 7,
+            "ArrowUp": 0,
+            "ArrowRight": 2,
+            "ArrowDown": 4,
+            "ArrowLeft": 6,
         };
-        var code = e.keyCode;
-        if (code == 13 || code == 32) {
+        var code = e.key;
+        if (code == " ") {
             this.checkBox();
             return false;
         }
